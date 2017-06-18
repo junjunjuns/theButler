@@ -43,11 +43,13 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  
-  #Heroku uses Heroku Postgres DB based on PostgreSQL
-  group :production do
-    gem 'pg'
-    gem 'rails_12factor'
-  end
 end
 
+#Heroku uses Heroku Postgres DB based on PostgreSQL
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
+
+# install devise for aunthentication
+gem 'devise', '~> 4.1', '4.1.1'
