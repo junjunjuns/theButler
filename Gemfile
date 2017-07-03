@@ -53,3 +53,6 @@ end
 
 # install devise for aunthentication
 gem 'devise', '~> 4.1', '4.1.1'
+
+#paperclip gem
+gem 'paperclip', github: 'thoughtbot/paperclip'
