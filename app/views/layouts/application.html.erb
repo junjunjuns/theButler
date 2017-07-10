@@ -1,22 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ButlerApp</title>
+  
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>The Butler</title>
+  
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  
+  <!--insert fonts-->
+  
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
 </head>
 <body>
-<div class="login">
-  <% if user_signed_in? %>
-    <div><%= current_user.email %> <%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %>
-  <% else %>
-    <%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Login', new_user_session_path %>
-  <% end %>
-</div>
-<p class="notice"><%= flash[:notice] %></p>
-<%= yield %>
-
-
+  <div class="topnav">
+    <ul>
+      <% if user_signed_in? %>
+        <li><a href="/signedinuserprofile">Profile</a></li>
+        <li><a>Expenses</a></li>
+        <li><a>Groups</a></li>
+        <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %></li>
+      <% else %>
+        <li><%= link_to 'Login', new_user_session_path %></li>
+        <li><%= link_to 'Register', new_user_registration_path %></li>
+      <% end %>
+  </div>
+  
+  <div class="clearfix"></div>
+  
+  <div id="wrapper">
+    <%= yield %>
+  </div>
+  
 </body>
 </html>
