@@ -22,14 +22,24 @@
   <div class="topnav">
     <ul>
       <% if user_signed_in? %>
-        <li><a href="/signedinuserprofile">Profile</a></li>
-        <li><a>Expenses</a></li>
-        <li><a>Groups</a></li>
+        <% @profile = current_user.id %>
+        <li><%= link_to 'Profile', profile_path(@profile) %></li>
+        <li>Expenses</li>
+        <li>Groups</li>
         <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %></li>
       <% else %>
         <li><%= link_to 'Login', new_user_session_path %></li>
         <li><%= link_to 'Register', new_user_registration_path %></li>
       <% end %>
+  </div>
+  
+  <div class="clearfix"></div>
+  
+  <div class="adminNav">
+    <% if user_signed_in? && current_user.admin? %>
+      <li><%= link_to 'All User Profiles', profiles_path %></li>
+      <li><%= link_to 'All Groups' %></li>
+    <% end %>
   </div>
   
   <div class="clearfix"></div>
