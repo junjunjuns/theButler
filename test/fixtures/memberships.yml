@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  accepted_on: 
+  g_admin: false
+  profile_id: 
+  group_id: 
+
+two:
+  accepted_on: 
+  g_admin: false
+  profile_id: 
+  group_id: 

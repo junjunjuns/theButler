@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  
+  resources :groups do
+    resources :memberships
+  end
+
   resources :profiles
 
   devise_for :users
