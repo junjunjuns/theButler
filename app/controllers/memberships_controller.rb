@@ -1,63 +1,86 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
 
-  # GET /memberships
-  # GET /memberships.json
+  # GET /groups/:group_id/memberships
   def index
-    @memberships = Membership.all
+    # For URL like /groups/1/memberships
+    # Get the group with id=1
+    @group = Group.find(params[:group_id])
+    
+    # Access all memberhips for that group
+    @memberships = @group.memberships
   end
 
-  # GET /memberships/1
-  # GET /memberships/1.json
+  # GET /groups/:group_id/memberships/:id
   def show
+    @group = Group.find(params[:group_id])
+    
+    # For URL like /groups/1/memberships/2
+    # Find a membership in groups 1 that has id=2
+    @membership = @group.memberships.find(params[:id])
   end
 
-  # GET /memberships/new
+  # GET /groups/:groups_id/memberships/new
   def new
-    @membership = Membership.new
+    @group = Group.find(params[:group_id])
+    
+    # Associate a membership object with group 1
+    @membership = @group.memberships.build
+    
+    # Set profile_id to current_user.id
+    # profile_id = current_user.id (one user can only have one profile, each user create profile as they register)
+    @membership.profile_id = current_user.id
   end
 
-  # GET /memberships/1/edit
+  # GET /groups/:group_id/memberships/:id/edit
   def edit
+    @group = Group.find(params[:group_id])
+    
+    # For URL like /groups/1/memberships/2/edit
+    # Get membership id=2 for group 1
+    @membership = @group.memberships.find(params[:id])
   end
 
-  # POST /memberships
-  # POST /memberships.json
+  # POST groups/:group_id/memberships
   def create
-    @membership = Membership.new(membership_params)
-
-    respond_to do |format|
-      if @membership.save
-        format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
-        format.json { render :show, status: :created, location: @membership }
-      else
-        format.html { render :new }
-        format.json { render json: @membership.errors, status: :unprocessable_entity }
-      end
+    @group = Group.find(params[:membership][:group_id])
+    
+    # For URL like /groups/1/memberships
+    # Populate a membership association with group 1 with form data
+    # Group will be associated with the membership
+    @membership = @group.memberships.build(params.require(:membership).permit!)
+    #@membership = @group.membership.build(params.require(:membership).permit(:user_id, :group_id, :admin, :accepted_on)))
+    
+    if @membership.save
+      # Save the membership successfully
+      redirect_to group_membership_url(@group, @membership)
+    else
+      render :action => "new"
     end
   end
 
-  # PATCH/PUT /memberships/1
-  # PATCH/PUT /memberships/1.json
+  # PATCH/PUT /groups/:group_id/memberships/:id
   def update
-    respond_to do |format|
-      if @membership.update(membership_params)
-        format.html { redirect_to @membership, notice: 'Membership was successfully updated.' }
-        format.json { render :show, status: :ok, location: @membership }
-      else
-        format.html { render :edit }
-        format.json { render json: @membership.errors, status: :unprocessable_entity }
-      end
+    @group = Group.find(params[:membership][:group_id])
+    @membership = Membership.find(params[:id])
+    
+    if @membership.update_attributes(params.require(:membership).permit!)
+      # Save the membership successfully
+      redirect_to group_membership_url(@group, @membership)
+    else
+      render :action => "edit"
     end
   end
 
-  # DELETE /memberships/1
-  # DELETE /memberships/1.json
+  # DELETE /groups/:group_id/memberships/:id
   def destroy
+    @group = Group.find(params[:group_id])
+    @membership = Membership.find(params[:id])
     @membership.destroy
+    
     respond_to do |format|
-      format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to group_memberships_url(@group), notice: 'Membership was successfully destroyed.' }
+      format.xml { head :ok }
     end
   end
 
