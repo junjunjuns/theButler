@@ -6,7 +6,11 @@ class GroupsController < ApplicationController
   def index
     @groups = Group.all
   end
-
+  
+  # GET /groups/home
+  def home
+  end
+    
   # GET /groups/1
   # GET /groups/1.json
   def show
@@ -28,6 +32,10 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
+        # Save creator (the user who created the group) as admin
+        @group.memberships.create([ 
+          { profile_id: current_user.id, accepted_on: Time.current, admin: true }
+        ])
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else

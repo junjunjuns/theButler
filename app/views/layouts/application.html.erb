@@ -25,7 +25,7 @@
         <% @profile = current_user.id %>
         <li><%= link_to 'Profile', profile_path(@profile) %></li>
         <li>Expenses</li>
-        <li>Groups</li>
+        <li><%= link_to 'Groups', group_home_path %></li>
         <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %></li>
       <% else %>
         <li><%= link_to 'Login', new_user_session_path %></li>
@@ -38,7 +38,7 @@
   <div class="adminNav">
     <% if user_signed_in? && current_user.admin? %>
       <li><%= link_to 'All User Profiles', profiles_path %></li>
-      <li><%= link_to 'All Groups' %></li>
+      <li><%= link_to 'All Groups' , groups_path %></li>
     <% end %>
   </div>
   
