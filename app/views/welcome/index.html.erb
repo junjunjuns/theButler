@@ -1,2 +1,18 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<div class="half-left">
+    
+</div>
+
+<div class="half-right">
+    <div class="speech-bubble-left">
+        <% if user_signed_in? %> 
+            <% if Profile.exists?(id: current_user.id) %>
+		        <% @profile = Profile.find(current_user.id) %>
+                <p>Welcome back, Master <%= @profile.fname %>! What can I do for you today? </p>
+                <p>To manage your <b>personal expenses</b>, go to <u>Expenses</u>.</p>
+                <p>To manage your household, go to <%= link_to 'Groups', group_home_path %>.</p>
+            <% else %>
+                <p>Please create a profile before you proceed!</p>
+            <% end %>
+        <% end %>
+    </div>
+</div>
