@@ -9,6 +9,12 @@ class GroupsController < ApplicationController
   
   # GET /groups/home
   def home
+    # find the members with profile_id = current_user.id
+    #@memberships = Membership.where(:profile_id => current_user.id)
+    @memberships = Membership.all
+    
+    # access all groups that member brlongs to
+    @groups = Group.all
   end
     
   # GET /groups/1
@@ -34,7 +40,7 @@ class GroupsController < ApplicationController
       if @group.save
         # Save creator (the user who created the group) as admin
         @group.memberships.create([ 
-          { profile_id: current_user.id, accepted_on: Time.current, admin: true }
+          { profile_id: current_user.id, accepted_on: Time.current, g_admin: true }
         ])
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }

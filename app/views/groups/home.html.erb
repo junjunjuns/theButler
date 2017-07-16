@@ -1,2 +1,44 @@
-<h1>Groups#home</h1>
-<p>Find me in app/views/groups/home.html.erb</p>
+<div class="third-left">
+    <div class="speech-bubble-bottom">
+        <p>You can start managing your household activitied by selecting on your group.</p>
+        <p>To <i>join</i> a group, you can search by the group's name or description and request to join.</p>
+        <p>You may also <i>create</i> a group and invite your housemates/flatmates to join you.</p>
+        <p>Grou functions like <b>Group Expenses</b>, <b>Group Schedules</b> and <b>Group Message Board</b> can only be accessed inside a group</p>
+    </div>
+</div>
+<div class="two-third">
+    <div class="top">
+        <div class="create">
+            <%= link_to 'Create Group', new_group_path %>
+        </div>
+        <div class="search">
+            
+        </div>
+    </div>
+    
+    <div class="content">
+        <h3>Your Groups</h3>
+        <div class="round-border">
+            <% if Membership.exists?(profile_id: current_user.id) %>
+                <table>
+                    <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @groups.each do |g| %>
+                            <tr>
+                                <td><%= g.name %></td>
+                                <td><%= g.description %></td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            <% else %>
+                <p>It seems that you do not belong to any groups. Please create a group or join a group.</p>
+            <% end %>
+        </div>
+    </div>
+</div>
