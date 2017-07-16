@@ -28,11 +28,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% @groups.each do |g| %>
-                            <tr>
-                                <td><%= g.name %></td>
-                                <td><%= g.description %></td>
-                            </tr>
+                        <% @memberships.where(:profile_id => current_user.id).each do |m| %>
+                            <% @groups.where(:id => m.group_id).each do |g| %>
+                                <tr>
+                                    <td><%= g.name %></td>
+                                    <td><%= g.description %></td>
+                                </tr>
+                            <% end %>
                         <% end %>
                     </tbody>
                 </table>
