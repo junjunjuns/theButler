@@ -12,7 +12,10 @@
             <%= link_to 'Create Group', new_group_path %>
         </div>
         <div class="search">
-            
+            <%= form_tag(group_search_path, :method => "get", id: "search-form") do %>
+                <%= text_field_tag :search, params[:search], placeholder: "Search for a Group" %>
+                <%= submit_tag "Search" %>
+            <% end %>
         </div>
     </div>
     

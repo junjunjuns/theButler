@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   get '/signedinuserprofile' => 'profiles#signedinuserprofile'
   
   get 'yourgroups' => 'groups#home', :as => 'group_home'
+  
+  get '/grouplist' => 'groups#search', :as => 'group_search'
+  
+  post '/groups/:group_id/join' => 'memberships#join', :as => 'join_membership'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

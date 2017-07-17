@@ -83,7 +83,34 @@ class MembershipsController < ApplicationController
       format.xml { head :ok }
     end
   end
+  
+  # request to join group
+  def join
+    @group = Group.find(params[:group_id])
 
+    @membership = @group.memberships.build
+    
+    @membership.profile_id = current_user.id
+    @membership.group_id = @group.id
+
+    if @membership.save
+      # Save the membership successfully
+      redirect_to group_home_url(@group, @membership)
+    else
+      render :action => "new"
+    end
+  end
+
+  # accept member
+  def accept
+    @@group = Group.find(params[:membership][:group_id])
+    @membership = Membership.find(params[:id])
+    
+    @membership.update_attributes(:accepted_on, Time.current)
+    
+    redirect_to @membership
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_membership

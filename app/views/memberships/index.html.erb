@@ -21,7 +21,7 @@
               <td>Admin</td>
             <% else %>
               <td>Set as Admin</td>
-              <td><%= link_to 'Destroy', group_membership_path(@group, m), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Remove from Group', group_membership_path(@group, m), method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
           <% end %>
         </tr>

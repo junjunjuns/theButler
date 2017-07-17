@@ -74,6 +74,14 @@ class GroupsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # lists of groups for search
+  def search
+    @groups = Group.all
+    if params[:search] 
+      @groups = Group.search(params[:search]).order("name ASC")
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

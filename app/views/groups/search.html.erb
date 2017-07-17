@@ -1,0 +1,22 @@
+<h2>Listing Groups</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Group Name</th>
+            <th>Description</th>
+            <th colspan ="1"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @groups.each do |g| %>
+            <tr>
+                <td><%= g.name %></td>
+                <td><%= g.description %></td>
+                <td><%= link_to 'Join', join_membership_path(g.id, @membership), method: :post, data: { confirm: 'Request to join group?' } %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<%= link_to 'Back', group_home_path %>
