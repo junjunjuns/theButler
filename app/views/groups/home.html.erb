@@ -30,10 +30,13 @@
                     <tbody>
                         <% @memberships.where(:profile_id => current_user.id).each do |m| %>
                             <% @groups.where(:id => m.group_id).each do |g| %>
-                                <tr>
-                                    <td><%= g.name %></td>
-                                    <td><%= g.description %></td>
-                                </tr>
+                                <% if m.accepted_on.nil? %>
+                                 <% else %>
+                                    <tr>
+                                        <td><%= link_to g.name, g %></td>
+                                        <td><%= g.description %></td>
+                                    </tr>
+                                <% end %>
                             <% end %>
                         <% end %>
                     </tbody>

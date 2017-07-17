@@ -31,6 +31,7 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(profile_params)
+    @profile.id = current_user.id
 
     respond_to do |format|
       if @profile.save
@@ -73,7 +74,7 @@ class ProfilesController < ApplicationController
         redirect_to "/profiles/new"
       else
         @profile = Profile.find_by_user_id(current_user.id)
-        redirect_to "/profiles/#{@profile.id}"
+        redirect_to welcome_index_url
       end
   end
 

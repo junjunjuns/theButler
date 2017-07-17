@@ -1,14 +1,29 @@
-<p id="notice"><%= notice %></p>
+<div class="top">
+  <div class="left">
+    <h1><%= @group.name %></h1>
+  </div>
+  <div class="right">
+    <%= link_to "View Members", group_memberships_path(@group) %>
+    <% if current_user.admin? %>
+      <%= link_to "Edit Group", edit_group_path(@group) %>
+    <% end %>
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @group.name %>
-</p>
+<div class="third-left">
+  <h2>Group Schedules</h2>
+  <div class="create">
+    <p>Create new Schedule</p>
+  </div>
+  <div class="content">
+    
+  </div>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @group.description %>
-</p>
+<div class="third-center">
+  
+</div>
 
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+<div class="third-right">
+  <h2>Group Expenses</h2>
+</div>
