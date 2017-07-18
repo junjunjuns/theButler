@@ -111,13 +111,36 @@ class MembershipsController < ApplicationController
 
   # accept member
   def accept
-    @@group = Group.find(params[:membership][:group_id])
+    @group = Group.find(params[:group_id])
     @membership = Membership.find(params[:id])
     
-    @membership.update_attributes(:accepted_on, Time.current)
+    @membership.update_attribute(:accepted_on, Time.current)
     
-    redirect_to @membership
+    redirect_to group_memberships_url
   end
+  
+  # set member as admin
+  def admin
+    @group = Group.find(params[:group_id])
+    @membership = Membership.find(params[:id])
+    
+    @membership.update_attribute(:g_admin, true)
+    
+    redirect_to group_memberships_url
+  end
+  
+  # leave group
+    def leave
+    @group = Group.find(params[:group_id])
+    @membership = Membership.find(params[:id])
+    @membership.destroy
+    
+    respond_to do |format|
+      format.html { redirect_to group_home_url, notice: 'You have left the group.' }
+      format.xml { head :ok }
+    end
+  end
+
   
   private
     # Use callbacks to share common setup or constraints between actions.

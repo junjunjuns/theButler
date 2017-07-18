@@ -16,15 +16,11 @@
              
               <td><%= (@profile.fname + " " + @profile.lname) %></td>
               
-              <td>Accept as member</td>
+              <td><%= link_to 'Accept as Member', accept_membership_path(@group, m), method: :post, data: { confirm: 'Accept membership request?' } %></td>
               
-              <% if m.g_admin %>
-                <td>Admin</td>
-              <% else %>
-                <td>Set as Admin</td>
-              <% end %>
+              <td></td>
               
-              <td><%= link_to 'Remove from Group', group_membership_path(@group, m), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Delete Membership Request', group_membership_path(@group, m), method: :delete, data: { confirm: 'Delete membership request?' } %></td>
             
             <% end %>
             
@@ -35,8 +31,20 @@
             <td>Joined <%= m.accepted_on.to_date %></td>
             <% if m.g_admin %>
               <td>Admin</td>
+              <% if m.profile_id == current_user.id %>
+                <td><%= link_to 'Leave Group',membership_leave_path(@group, m), method: :delete, data: { confirm: 'Are you sure you want to leave this group?' } %></td>
+              <% end %>
+            <% else %>
+              <% if @admin %>
+                <td><%= link_to 'Set as Admin', membership_admin_path(@group, m), method: :post, data: { confirm: 'Setting this member as admin will allow them admin rights to the group. Are you sure you want to set this member as admin?' } %></td>
+                <td><%= link_to 'Remove from Group', group_membership_path(@group, m), method: :delete, data: { confirm: 'Remove member from group?' } %></td>
+              <% else %>
+                <% if m.profile_id == current_user.id %>
+                  <td></td>
+                  <td><%= link_to 'Leave Group', group_membership_path(@group, m), method: :delete, data: { confirm: 'Are you sure you want to leave this group?' } %></td>
+                <% end %>
+              <% end %>
             <% end %>
-            
           <% end %>
         </tr>
       <% end %>

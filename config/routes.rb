@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   get '/grouplist' => 'groups#search', :as => 'group_search'
   
   post '/groups/:group_id/join' => 'memberships#join', :as => 'join_membership'
+  post '/groups/:group_id/memberships/:id/accept' => 'memberships#accept', :as => 'accept_membership'
+  post '/groups/:group_id/memberships/:id/admin' => 'memberships#admin', :as => 'membership_admin'
+  delete '/groups/:group_id/memberships/:id/leave' => 'memberships#leave', :as => 'membership_leave'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
