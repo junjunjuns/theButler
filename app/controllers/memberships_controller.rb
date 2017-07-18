@@ -9,6 +9,14 @@ class MembershipsController < ApplicationController
     
     # Access all memberhips for that group
     @memberships = @group.memberships
+    
+    # check if user is admin
+    @user = @memberships.find_by_profile_id(current_user.id)
+    if @user.g_admin == true
+      @admin = true
+    else
+      @admin = false
+    end
   end
 
   # GET /groups/:group_id/memberships/:id

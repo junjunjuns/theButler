@@ -7,22 +7,36 @@
       <% @memberships.each do |m| %>
         <tr>
           <% @profile = Profile.find(m.profile_id) %>
-          <td><%= image_tag(@profile.avatar.url(:thumb)) %></td>
-          <td><%= (@profile.fname + " " + @profile.lname) %></td>
+          
           <% if m.accepted_on.nil? %>
-            <% if current_user.admin? %>
+          
+            <% if @admin %>
+              
+              <td><%= image_tag(@profile.avatar.url(:thumb)) %></td>
+             
+              <td><%= (@profile.fname + " " + @profile.lname) %></td>
+              
               <td>Accept as member</td>
+              
+              <% if m.g_admin %>
+                <td>Admin</td>
+              <% else %>
+                <td>Set as Admin</td>
+              <% end %>
+              
+              <td><%= link_to 'Remove from Group', group_membership_path(@group, m), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            
             <% end %>
+            
           <% else %>
+          
+            <td><%= image_tag(@profile.avatar.url(:thumb)) %></td>
+            <td><%= (@profile.fname + " " + @profile.lname) %></td>
             <td>Joined <%= m.accepted_on.to_date %></td>
-          <% end %>
-          <% if current_user.admin? %>
             <% if m.g_admin %>
               <td>Admin</td>
-            <% else %>
-              <td>Set as Admin</td>
-              <td><%= link_to 'Remove from Group', group_membership_path(@group, m), method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
+            
           <% end %>
         </tr>
       <% end %>
