@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170718225025) do
+ActiveRecord::Schema.define(version: 20170719150349) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 20170718225025) do
   create_table "profiles", force: :cascade do |t|
     t.string   "fname"
     t.string   "lname"
-    t.integer  "age"
     t.string   "gender"
     t.string   "nationality"
     t.string   "religion"
@@ -58,6 +57,7 @@ ActiveRecord::Schema.define(version: 20170718225025) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.date     "dob"
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"

@@ -11,17 +11,18 @@
     </div>
   <% end %>
 
+  <p>* indicates fields that must be filled.</p>
   <div class="field">
-    <%= f.label :fname %><br>
+    <%= f.label :fname %> *<br>
     <%= f.text_field :fname %>
   </div>
   <div class="field">
-    <%= f.label :lname %><br>
+    <%= f.label :lname %> *<br>
     <%= f.text_field :lname %>
   </div>
   <div class="field">
-    <%= f.label :age %><br>
-    <%= f.number_field :age %>
+    <%= f.label :dob %><br>
+    <%= f.date_field :dob %>
   </div>
   <div class="field">
     <%= f.label :gender %><br>
@@ -42,10 +43,6 @@
   <div class="field">
     <%= f.label :avatar %><br>
     <%= f.file_field :avatar %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
   </div>
   <div class="actions">
     <%= f.submit %>

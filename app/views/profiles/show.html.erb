@@ -16,8 +16,8 @@
 </p>
 
 <p>
-  <strong>Age:</strong>
-  <%= @profile.age %>
+  <strong>Birthday:</strong>
+  <%= @profile.dob %>
 </p>
 
 <p>
@@ -38,11 +38,6 @@
 <p>
   <strong>Description:</strong>
   <%= @profile.description %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @profile.user_id %>
 </p>
 
 <% if @profile.id == current_user.id %>

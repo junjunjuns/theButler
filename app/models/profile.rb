@@ -6,6 +6,13 @@ class Profile < ActiveRecord::Base
   has_many :memberships
   has_many :groups, :through => :memberships
   
+  # Validates each field that must be filled in
+  validates :fname,
+  :presence => true
+  
+  validates :lname,
+  :presence => true
+
     # For avatar settings
     # @references http://robmclarty.com/blog/how-to-install-image-magick-and-setup-paperclip
     has_attached_file :avatar, 

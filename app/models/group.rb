@@ -4,6 +4,9 @@ class Group < ActiveRecord::Base
   has_many :memberships
   has_many :profiles, :through => :memberships
   
+  validates :name,
+  :presence => true
+  
   has_many :messages
   
   def self.search(search)
