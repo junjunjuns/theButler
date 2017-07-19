@@ -21,7 +21,49 @@
 </div>
 
 <div class="third-center">
+  <h2>Group Messages</h2>
   
+  <!-- Box for posting a new message -->
+  <%= form_for([@group, @message]) do |f| %>
+    <% if @message.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
+  
+        <ul>
+        <% @message.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="field">
+      <%= f.text_field :content %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+  
+  <!-- list all messages -->
+  <% @messages.where(:group_id => @group).each do |msg| %>
+    <table>
+      <tbody>
+        <% @profile = Profile.find(msg.profile_id) %>
+        <tr>
+          <td rowspan="2"><%= link_to image_tag(@profile.avatar.url(:thumb)), profile_url(@profile) %></td>
+          <td><%= @profile.fname %></td>
+          <td colspan="2"><%= link_to 'Edit', edit_group_message_path(@group, msg) %> <%= link_to 'Destroy', group_message_path(@group, msg), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <tr>
+          <td><%= msg.created_at.to_date %></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="5"><%= msg.content %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
 </div>
 
 <div class="third-right">

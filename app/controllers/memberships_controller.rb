@@ -7,7 +7,7 @@ class MembershipsController < ApplicationController
     # Get the group with id=1
     @group = Group.find(params[:group_id])
     
-    # Access all memberhips for that group
+    # Access all memberships for that group
     @memberships = @group.memberships
     
     # check if user is admin

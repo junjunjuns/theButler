@@ -1,23 +1,30 @@
 Rails.application.routes.draw do
-  
+
+  resources :groups do
+    resources :messages
+  end
+
   resources :groups do
     resources :memberships
   end
-
-  resources :profiles
-
-  devise_for :users
-  get 'welcome/index'
-  get '/signedinuserprofile' => 'profiles#signedinuserprofile'
   
   get 'yourgroups' => 'groups#home', :as => 'group_home'
-  
   get '/grouplist' => 'groups#search', :as => 'group_search'
-  
+
   post '/groups/:group_id/join' => 'memberships#join', :as => 'join_membership'
   post '/groups/:group_id/memberships/:id/accept' => 'memberships#accept', :as => 'accept_membership'
   post '/groups/:group_id/memberships/:id/admin' => 'memberships#admin', :as => 'membership_admin'
   delete '/groups/:group_id/memberships/:id/leave' => 'memberships#leave', :as => 'membership_leave'
+
+
+  resources :profiles
+  
+  get '/signedinuserprofile' => 'profiles#signedinuserprofile'
+
+  devise_for :users
+  get 'welcome/index'
+  
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -20,6 +20,13 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    # Create a new message
+    @message = @group.messages.build
+    @message.profile_id = current_user.id
+    @message.group_id = Group.find(params[:id])
+    
+    # List all messages for the group
+    @messages = Message.all
   end
 
   # GET /groups/new
