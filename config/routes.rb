@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
   resources :groups do
+    resources :activities do
+      resources :schedules
+    end
+  end
+
+  resources :groups do
     resources :messages
   end
 

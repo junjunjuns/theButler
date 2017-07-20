@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day: MyString
+  date: 2017-07-19
+  start_time: 2017-07-19 16:01:19
+  activity_id: 
+  membership_id: 
+
+two:
+  day: MyString
+  date: 2017-07-19
+  start_time: 2017-07-19 16:01:19
+  activity_id: 
+  membership_id: 

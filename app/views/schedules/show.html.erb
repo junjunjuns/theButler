@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Day:</strong>
+  <%= @schedule.day %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @schedule.date %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @schedule.start_time %>
+</p>
+
+<p>
+  <strong>Activity:</strong>
+  <%= @schedule.activity %>
+</p>
+
+<p>
+  <strong>Membership:</strong>
+  <%= @schedule.membership %>
+</p>
+
+<%= link_to 'Edit', edit_group_activity_schedule_path(@group, @activity, @schedule) %> |
+<%= link_to 'Back', group_activity_schedules_path(@group, @activity) %>

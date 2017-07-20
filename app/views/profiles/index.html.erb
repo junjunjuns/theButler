@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Profile ID</th>
+      <th>Avatar</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Birthday</th>
@@ -23,6 +24,7 @@
     <% @profiles.each do |profile| %>
       <tr>
         <td><%= profile.id %></td>
+        <td><%= image_tag(profile.avatar.url(:thumb)) %></td>
         <td><%= profile.fname %></td>
         <td><%= profile.lname %></td>
         <td><%= profile.dob %></td>

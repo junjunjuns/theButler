@@ -4,7 +4,7 @@ class Profile < ActiveRecord::Base
   # Many-To-Many rel with groups through memberships
   # A profile(user) can belong to many groups
   has_many :memberships
-  has_many :groups, :through => :memberships
+  has_many :groups, :through => :memberships, :dependent => :destroy
   
   # Validates each field that must be filled in
   validates :fname,
@@ -23,7 +23,7 @@ class Profile < ActiveRecord::Base
     # Different sizes and quality
     :styles => {
       :thumb    => ['100x100#',  :jpg, :quality => 70],
-      :preview  => ['480x480#',  :jpg, :quality => 70],
+      :preview  => ['250x250#',  :jpg, :quality => 70],
       :large    => ['600>',      :jpg, :quality => 70],
       :retina   => ['1200>',     :jpg, :quality => 30]
     },

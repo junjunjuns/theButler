@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Schedules</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th>Date</th>
+      <th>Start time</th>
+      <th>Activity</th>
+      <th>Membership</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @schedules.each do |schedule| %>
+      <tr>
+        <td><%= schedule.day %></td>
+        <td><%= schedule.date %></td>
+        <td><%= schedule.start_time %></td>
+        <td><%= schedule.activity %></td>
+        <td><%= schedule.membership %></td>
+        <td><%= link_to 'Show', group_activity_schedule_path(@group, @activity, schedule) %></td>
+        <td><%= link_to 'Edit', edit_group_activity_schedule_path(@group, @activity, schedule) %></td>
+        <td><%= link_to 'Destroy', group_activity_schedule_path(@group, @activity, schedule), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Schedule', new_group_activity_schedule_path(@group, @activity) %>
