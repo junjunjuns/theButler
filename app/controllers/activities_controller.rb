@@ -26,6 +26,8 @@ class ActivitiesController < ApplicationController
     
     # Associate an activity object with group 1
     @activity = @group.activities.build
+    
+    @activity.group_id = @group.id
   end
 
   # GET /groups/:group_id/activities/:id/edit
@@ -39,7 +41,7 @@ class ActivitiesController < ApplicationController
 
   # POST groups/:group_id/activities
   def create
-    @group = Group.find(params[:activity][:group_id])
+    @group = Group.find(params[:group_id])
     
     # For URL like /groups/1/activites
     # Populate an activity association with group 1 with form data

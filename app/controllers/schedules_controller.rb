@@ -31,6 +31,9 @@ class SchedulesController < ApplicationController
     
     # Associate a schedule object with group 1, activity 2
     @schedule = @activity.schedules.build
+    
+    @schedule.activity_id = @activity.id
+    @membership = Membership.where(:group_id => @group.id)
   end
 
   # GET /groups/:group_id/activities/:activity_id/schedules/:id/edit
@@ -41,6 +44,8 @@ class SchedulesController < ApplicationController
     # For URL like /groups/1/activities/2/schedules/3/edit
     # Get schedules id=3 for group 1, activity 2
     @schedule = @activity.schedules.find(params[:id])
+    
+    @membership = Membership.where(:group_id => @group.id)
   end
 
   # POST groups/:group_id/activities/:activity_id/schedules
