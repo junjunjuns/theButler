@@ -1,7 +1,7 @@
 class Group < ActiveRecord::Base
   # Many-To-Many rel with profiles(users) through memberships
   # A profile(user) can belong to many groups
-  has_many :memberships
+  has_many :memberships, :dependent => :destroy
   has_many :profiles, :through => :memberships, :dependent => :destroy
   
   validates :name,

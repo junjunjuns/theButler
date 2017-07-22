@@ -3,7 +3,7 @@ class Profile < ActiveRecord::Base
   
   # Many-To-Many rel with groups through memberships
   # A profile(user) can belong to many groups
-  has_many :memberships
+  has_many :memberships, :dependent => :destroy
   has_many :groups, :through => :memberships, :dependent => :destroy
   
   # Validates each field that must be filled in
