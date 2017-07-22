@@ -18,6 +18,9 @@ class ActivitiesController < ApplicationController
     # For URL like /groups/1/activities/2
     # Find an activity in groups 1 that has id=2
     @activity = @group.activities.find(params[:id])
+    
+    # Access schedules
+    @schedules = @activity.schedules
   end
 
   # GET /groups/:groups_id/activities/new
@@ -52,7 +55,7 @@ class ActivitiesController < ApplicationController
 
     if @activity.save
       # Save the activity successfully
-      redirect_to group_activity_url(@group, @activity)
+      redirect_to group_url(@group)
     else
       render :action => "new"
     end
@@ -60,12 +63,12 @@ class ActivitiesController < ApplicationController
 
   # PATCH/PUT /groups/:group_id/activities/:id
   def update
-    @group = Group.find(params[:activity][:group_id])
+    @group = Group.find(params[:group_id])
     @activity = Activity.find(params[:id])
     
     if @activity.update_attributes(params.require(:activity).permit!)
       # Update the activity successfully
-      redirect_to group_url(@group)
+      redirect_to group_activity_url(@group, @activity)
     else
       render :action => "edit"
     end

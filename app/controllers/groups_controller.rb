@@ -27,6 +27,12 @@ class GroupsController < ApplicationController
     
     # List all messages for the group
     @messages = Message.all
+    
+    # List all activities
+    @activities = Activity.all
+    
+    # List all schedules
+    @schedules = Schedule.all
   end
 
   # GET /groups/new

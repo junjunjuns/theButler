@@ -1,19 +1,38 @@
-<p id="notice"><%= notice %></p>
+<div class="third-left">
+  <div class="speech-bubble-bottom">
+    <p>Here is where you can add schedules to your group activities by specifying when a member of your group has to perform that activity.</p>
+    <p>Unfortunately, for now, there is no options for recurring schedules so changes to dates and times has to be updated manually.</p>
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @activity.name %>
-</p>
+<div class="two-third">
+  <h1><%= @activity.name %></h1>
+  <h3><%= @activity.description %></h3>
+  <%= link_to "+ add schedule", new_group_activity_schedule_path(@group, @activity) %>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>Person in Charge</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @schedules.each do |sch| %>
+        <tr>
+          <td><%= sch.date.strftime("%e %B %Y, %A") %></td>
+          <td><%= sch.start_time.strftime("%H:%M") %></td>
+          <% @membership = Membership.find(sch.membership_id) %>
+          <td><%= Profile.find(@membership.profile_id).fname %></td>
+          <td><%= link_to 'Edit', edit_group_activity_schedule_path(@group, @activity, sch) %> 
+              <%= link_to 'Destroy', group_activity_schedule_path(@group, @activity, sch), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @activity.description %>
-</p>
-
-<p>
-  <strong>Group:</strong>
-  <%= @activity.group %>
-</p>
-
-<%= link_to 'Edit', edit_group_activity_path(@group, @activity) %> |
-<%= link_to 'Back', group_activities_path(@group) %>
+<%= link_to 'Edit Activity', edit_group_activity_path(@group, @activity) %> |
+<%= link_to 'Back to Group', @group %>

@@ -13,10 +13,33 @@
 <div class="third-left">
   <h2>Group Schedules</h2>
   <div class="create">
-    <p>Create new Schedule</p>
+    <%= link_to "Create new Activity", new_group_activity_path(@group) %>
   </div>
   <div class="content">
-    
+    <% @activities.where(:group_id => @group).each do |act| %>
+      <table>
+        <thead>
+          <tr>
+            <td><%= link_to act.name, group_activity_path(@group, act) %></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Date</td>
+            <td>Start Time</td>
+            <td>Person in Charge</td>
+          </tr>
+          <% @schedules.where(:activity_id => act).each do |sch| %>
+            <tr>
+              <td><%= sch.date.strftime("%e %B %Y, %A") %></td>
+              <td><%= sch.start_time.strftime("%H:%M") %></td>
+              <% @membership = Membership.find(sch.membership_id) %>
+              <td><%= Profile.find(@membership.profile_id).fname %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 </div>
 
@@ -45,7 +68,7 @@
   <% end %>
   
   <!-- list all messages -->
-  <div class="messages">
+  <div class="content">
     <% @messages.where(:group_id => @group).each do |msg| %>
       <table>
         <tbody>
@@ -53,7 +76,8 @@
           <tr>
             <td rowspan="2"><%= link_to image_tag(@profile.avatar.url(:thumb)), profile_url(@profile) %></td>
             <td><%= @profile.fname %></td>
-            <td colspan="2"><%= link_to 'Edit', edit_group_message_path(@group, msg) %> <%= link_to 'Destroy', group_message_path(@group, msg), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td colspan="2"><%= link_to 'Edit', edit_group_message_path(@group, msg) %> 
+                            <%= link_to 'Destroy', group_message_path(@group, msg), method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
           <tr>
             <td><%= msg.created_at.strftime("%A, %e %B %Y at %H:%M") %></td>
