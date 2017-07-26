@@ -89,6 +89,10 @@ body{
     margin: 1%;
 }
 
+.section img{
+    width: 100%;
+}
+
 .two-third{
     width: 64%;
     float: left;
