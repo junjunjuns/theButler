@@ -6,6 +6,9 @@ class Profile < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :groups, :through => :memberships, :dependent => :destroy
   
+  has_many :categories, :dependent => :destroy
+  has_many :expenses, :dependent => :destroy
+  
   # Validates each field that must be filled in
   validates :fname,
   :presence => true

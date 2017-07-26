@@ -1,0 +1,30 @@
+<%= form_for([@profile, @expense]) do |f| %>
+  <% if @expense.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@expense.errors.count, "error") %> prohibited this expense from being saved:</h2>
+
+      <ul>
+      <% @expense.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :exp_date %><br>
+    <%= f.date_select :exp_date %>
+  </div>
+  <div class="field">
+    <%= f.label :amt %><br>
+    <%= f.text_field :amt %>
+  </div>
+  <div class="field">
+    <%= f.label :item_id %><br>
+    <%= f.select :item_id, @item.collect { |itm| [itm.itm_with_cat, itm.id] } %>
+  </div>
+  <p><%= link_to "Create new Item", profile_categories_path(@profile) %></p>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

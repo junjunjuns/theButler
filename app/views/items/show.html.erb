@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item.name %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @item.desc %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= Category.find(@item.category_id).name %>
+</p>
+
+<%= link_to 'Edit', edit_profile_category_item_path(@profile, @category, @item) %> |
+<%= link_to 'Back', profile_category_path(@profile, @category) %>

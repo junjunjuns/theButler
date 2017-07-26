@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label 'Person in charge' %><br>
-    <%= f.select :membership_id, @membership.collect { |m| [Profile.find(m.profile_id).fname, m.id]  } %>
+    <%= f.select :membership_id, @membership.collect { |m| [Profile.find(m.profile_id).fname, m.id] } %>
   </div>
   <div class="actions">
     <%= f.submit %>

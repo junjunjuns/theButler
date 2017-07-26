@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @expense.exp_date %>
+</p>
+
+<p>
+  <strong>Amt:</strong>
+  <%= @expense.amt %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= Category.find(Item.find(@expense.item_id)).name %>
+</p>
+
+<p>
+  <strong>Item:</strong>
+  <%= Item.find(@expense.item_id).name %>
+</p>
+
+<%= link_to 'Edit', edit_profile_expense_path(@profile, @expense) %> |
+<%= link_to 'Back', profile_expenses_path(@profile, @expense) %>

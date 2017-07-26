@@ -24,7 +24,7 @@
       <% if user_signed_in? %>
         <% @profile = current_user.id %>
         <li><%= link_to 'Profile', profile_path(@profile) %></li>
-        <li>Expenses</li>
+        <li><%= link_to 'Expenses', expenses_overview_path(@profile) %></li>
         <li><%= link_to 'Groups', group_home_path %></li>
         <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %></li>
       <% else %>

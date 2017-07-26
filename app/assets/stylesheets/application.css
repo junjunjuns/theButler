@@ -96,6 +96,13 @@ body{
     margin: 1%;
 }
 
+.half{
+    width: 48%;
+    float: left;
+    text-align: justify;
+    margin: 1%;
+}
+
 .clearfix{
 	clear: both;
 }

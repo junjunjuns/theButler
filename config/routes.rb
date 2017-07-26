@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
 
+  resources :profiles do
+    resources :expenses
+  end
+  
+  get '/profiles/:profile_id/expenses_overview' => 'expenses#overview', :as => 'expenses_overview'
+  
+  resources :profiles do
+    resources :categories do
+      resources :items
+    end
+  end
+
   resources :groups do
     resources :activities do
       resources :schedules

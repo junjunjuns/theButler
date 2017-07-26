@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<div class="section">
+  <div class="speech-bubble-bottom">
+    <p>This is where you can manage your personal expenses.</p>
+    <p>By clicking on the month, the you view your monthly expenses report.</p>
+    <p>To update an expense, simply click on the expenses on the detailed monthly expenses page.</p>
+  </div>
+</div>
+
+<div class="two-third">
+  <h1>Expenses Overview</h1>
+  <p><%= link_to "+ Record New Expenses", new_profile_expense_path(@profile) %></p>
+  <p><%= link_to "View All Expenses", profile_expenses_path(@profile) %></p>
+  <p><%= link_to "View All Categories", profile_categories_path(@profile) %></p>
+
+  <div class="clearfix"></div>
+  
+  <div class = "half">
+    <table>
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @monthly_exp.each do |month, expenses| %>
+          <tr>
+            <td><%= month %></td>
+            <% count_array = expenses.collect { |e| e.amt } %>
+            <td><%= count_array.sum %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class"half">
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cat_exp.each do |cat, expenses| %>
+          <tr>
+            <td><%= cat %></td>
+            <% count_array = expenses.collect { |e| e.amt } %>
+            <td><%= count_array.sum %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
