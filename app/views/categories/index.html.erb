@@ -1,35 +1,43 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Categories</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Desc</th>
-      <th>Items</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @categories.each do |category| %>
+<div class="section">
+  <div class="speech-bubble-bottom">
+    <p>Remember, you will have to create a category before you can create an item.</p>
+    <p>To add or view items of a category, simply click on the category.</p>
+  </div>
+</div>
+<div class="two-third">
+  <h1>All Categories</h1>
+  
+  <table>
+    <thead>
       <tr>
-        <td><%= link_to category.name, profile_category_path(@profile, category) %></td>
-        <td><%= category.desc %></td>
-        <td>
-          <% @items.where(:category_id => category.id).each do |itm| %>
-            <%= itm.name %> <br>
-          <% end %>
-        </td>
-        <td><%= link_to 'Edit', edit_profile_category_path(@profile, category) %></td>
-        <td><%= link_to 'Destroy', profile_category_path(@profile, category), method: :delete, data: { confirm: 'Are you sure? All items and expenses under this category will also be deleted.' } %></td>
+        <th>Category</th>
+        <th>Desc</th>
+        <th>Items</th>
+        <th colspan="2"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Category', new_profile_category_path(@profile) %>
-<%= link_to 'Back to Creating a New Expense', new_profile_expense_path(@profile) %>
+    </thead>
+  
+    <tbody>
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= link_to category.name, profile_category_path(@profile, category) %></td>
+          <td><%= category.desc %></td>
+          <td>
+            <% @items.where(:category_id => category.id).each do |itm| %>
+              <%= itm.name %> <br>
+            <% end %>
+          </td>
+          <td><%= link_to 'Edit', edit_profile_category_path(@profile, category) %></td>
+          <td><%= link_to 'Destroy', profile_category_path(@profile, category), method: :delete, data: { confirm: 'Are you sure? All items and expenses under this category will also be deleted.' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <br>
+  
+  <%= link_to 'New Category', new_profile_category_path(@profile) %>
+  <%= link_to 'Back to Creating a New Expense', new_profile_expense_path(@profile) %>
+</div>
