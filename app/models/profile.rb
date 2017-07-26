@@ -25,10 +25,10 @@ class Profile < ActiveRecord::Base
     :url => "/assets/:attachment/:id/:basename_:style.:extension",
     # Different sizes and quality
     :styles => {
-      :thumb    => ['50x50#',  :jpg, :quality => 70],
+      :thumb    => ['100x100#',  :jpg, :quality => 70],
       :preview  => ['250x250#',  :jpg, :quality => 70],
       :large    => ['600>',      :jpg, :quality => 70],
-      :retina   => ['1200>',     :jpg, :quality => 30]
+      :mini   => ['70x70#',     :jpg, :quality => 70]
     },
     :convert_options => {
       :thumb    => '-set colorspace sRGB -strip',
