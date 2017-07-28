@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Contributor:</strong>
+  <%= Profile.find(@gexpense.profile_id).fname %>
+</p>
+
+<p>
+  <strong>Paid on:</strong>
+  <%= @gexpense.paid_on %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= Gcategory.find(Gitem.find(@gexpense.gitem_id).gcategory_id).name %>
+</p>
+
+<p>
+  <strong>Item:</strong>
+  <%= Gitem.find(@gexpense.gitem_id).name %>
+</p>
+
+<p>
+  <strong>Total amount:</strong>
+  <%= @gexpense.total_amt %>
+</p>
+
+<p>
+  <strong>Members sharing the Expense</strong><br>
+  <% @member_expense.each do |e| %>
+    <%= Profile.find(Membership.find(e.membership_id)).fname %> </br>
+  <% end %>
+</p>
+
+<p>
+  <strong>Shared amount:</strong>
+  <%= @gexpense.shared_amt %>
+</p>
+
+
+<%= link_to 'Edit', edit_group_gexpense_path(@group, @gexpense) %> |
+<%= link_to 'Back', group_gexpenses_path(@group, @gexpense) %>

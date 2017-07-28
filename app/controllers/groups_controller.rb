@@ -20,10 +20,12 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    @group = Group.find(params[:id])
+
     # Create a new message
     @message = @group.messages.build
     @message.profile_id = current_user.id
-    @message.group_id = Group.find(params[:id])
+    @message.group_id = @group.id
     
     # List all messages for the group
     @messages = Message.all
@@ -33,6 +35,14 @@ class GroupsController < ApplicationController
     
     # List all schedules
     @schedules = Schedule.all
+    
+    # Group expenses details
+    @gexpenses = @group.gexpenses
+
+    @cat_exp = @gexpenses.group_by(&:category).sort
+    @monthly_exp = @gexpenses.order('paid_on').group_by(&:month)
+
+    @member_expense = MemberExpense.where(:gexpense_id => @gexpenses.ids)
   end
 
   # GET /groups/new

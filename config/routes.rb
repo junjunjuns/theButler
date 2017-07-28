@@ -1,31 +1,32 @@
 Rails.application.routes.draw do
 
-  resources :profiles do
-    resources :expenses
+  resources :groups do
+    resources :gexpenses do
+      resources :member_expenses
+    end
+    resources :gcategories do
+      resources :gitems
+    end
+    resources :activities do
+      resources :schedules
+    end
+    resources :messages
+    resources :memberships
   end
   
-  get '/profiles/:profile_id/expenses_overview' => 'expenses#overview', :as => 'expenses_overview'
-  
+  post '/groups/:group_id/gexpenses/:gexpense_id/member_expenses/:id/pay' => 'member_expenses#pay', :as => 'pay_gexpenses'
+  post '/groups/:group_id/gexpenses/:id/calc_shared' => 'gexpenses#calc_shared', :as => 'calc_shared'
+
+
   resources :profiles do
+    resources :expenses
     resources :categories do
       resources :items
     end
   end
-
-  resources :groups do
-    resources :activities do
-      resources :schedules
-    end
-  end
-
-  resources :groups do
-    resources :messages
-  end
-
-  resources :groups do
-    resources :memberships
-  end
   
+  get '/profiles/:profile_id/expenses_overview' => 'expenses#overview', :as => 'expenses_overview'
+
   get 'yourgroups' => 'groups#home', :as => 'group_home'
   get '/grouplist' => 'groups#search', :as => 'group_search'
 
@@ -34,9 +35,6 @@ Rails.application.routes.draw do
   post '/groups/:group_id/memberships/:id/admin' => 'memberships#admin', :as => 'membership_admin'
   delete '/groups/:group_id/memberships/:id/leave' => 'memberships#leave', :as => 'membership_leave'
 
-
-  resources :profiles
-  
   get '/signedinuserprofile' => 'profiles#signedinuserprofile'
 
   devise_for :users

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @gitems.each do |gitem| %>
+      <tr>
+        <td><%= gitem.name %></td>
+        <td><%= gitem.desc %></td>
+        <td><%= Gcategory.find(gitem.gcategory).name %></td>
+        <td><%= link_to 'Show', group_gcategory_gitem_path(@group, @gcategory, gitem) %></td>
+        <td><%= link_to 'Edit', edit_group_gcategory_gitem_path(@group, @gcategory, gitem) %></td>
+        <td><%= link_to 'Destroy', group_gcategory_gitem(@group, @gcategory), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Item', new_group_gcategory_gitem_path(@group, @gcategory) %>

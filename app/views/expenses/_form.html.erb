@@ -23,7 +23,7 @@
     <%= f.label :item_id %><br>
     <%= f.select :item_id, @item.collect { |itm| [itm.itm_with_cat, itm.id] } %>
   </div>
-  <p><%= link_to "Create new Item", profile_categories_path(@profile) %></p>
+  <p><%= link_to "Create New Item", profile_categories_path(@profile) %></p>
   <div class="actions">
     <%= f.submit %>
   </div>

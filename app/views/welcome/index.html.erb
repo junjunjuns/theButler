@@ -8,7 +8,7 @@
             <% if Profile.exists?(id: current_user.id) %>
 		        <% @profile = Profile.find(current_user.id) %>
                 <p>Welcome back, Master <%= @profile.fname %>! What can I do for you today? </p>
-                <p>To manage your <b>personal expenses</b>, go to <u>Expenses</u>.</p>
+                <p>To manage your <b>personal expenses</b>, go to <%= link_to 'Expenses', expenses_overview_path(current_user.id) %>.</p>
                 <p>To manage your household, go to <%= link_to 'Groups', group_home_path %>.</p>
             <% else %>
                 <p>Please create a profile before you proceed!</p>

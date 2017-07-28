@@ -1,0 +1,21 @@
+<%= form_for([@group, @gexpense, @member_expense]) do |f| %>
+  <% if @member_expense.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@member_expense.errors.count, "error") %> prohibited this member_expense from being saved:</h2>
+
+      <ul>
+      <% @member_expense.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label 'Members sharing the expense' %><br>
+    <%= f.text_field :membership_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

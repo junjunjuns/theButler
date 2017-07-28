@@ -5,4 +5,6 @@ class Membership < ActiveRecord::Base
   has_many :messages, :dependent => :destroy
   
   has_many :schedules, :dependent => :destroy
+  
+  has_many :gexpenses, :through => :member_expenses, :dependent => :destroy
 end

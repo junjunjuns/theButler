@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170726220336) do
+ActiveRecord::Schema.define(version: 20170728141901) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -45,6 +45,41 @@ ActiveRecord::Schema.define(version: 20170726220336) do
   add_index "expenses", ["item_id"], name: "index_expenses_on_item_id"
   add_index "expenses", ["profile_id"], name: "index_expenses_on_profile_id"
 
+  create_table "gcategories", force: :cascade do |t|
+    t.string   "name"
+    t.string   "desc"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "gcategories", ["group_id"], name: "index_gcategories_on_group_id"
+
+  create_table "gexpenses", force: :cascade do |t|
+    t.date     "paid_on"
+    t.decimal  "total_amt"
+    t.decimal  "shared_amt"
+    t.integer  "profile_id"
+    t.integer  "group_id"
+    t.integer  "gitem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "gexpenses", ["gitem_id"], name: "index_gexpenses_on_gitem_id"
+  add_index "gexpenses", ["group_id"], name: "index_gexpenses_on_group_id"
+  add_index "gexpenses", ["profile_id"], name: "index_gexpenses_on_profile_id"
+
+  create_table "gitems", force: :cascade do |t|
+    t.string   "name"
+    t.string   "desc"
+    t.integer  "gcategory_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "gitems", ["gcategory_id"], name: "index_gitems_on_gcategory_id"
+
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -61,6 +96,17 @@ ActiveRecord::Schema.define(version: 20170726220336) do
   end
 
   add_index "items", ["category_id"], name: "index_items_on_category_id"
+
+  create_table "member_expenses", force: :cascade do |t|
+    t.boolean  "paid",          default: false
+    t.integer  "gexpense_id"
+    t.integer  "membership_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "member_expenses", ["gexpense_id"], name: "index_member_expenses_on_gexpense_id"
+  add_index "member_expenses", ["membership_id"], name: "index_member_expenses_on_membership_id"
 
   create_table "memberships", force: :cascade do |t|
     t.datetime "created_at",                  null: false

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Member Expenses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Paid</th>
+      <th>Member</th>
+      <th>Expense</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @member_expenses.each do |member_expense| %>
+      <tr>
+        <td>
+          <% if member_expense.paid %>
+            Yes
+          <% else %>
+            No
+          <% end %>
+        </td>
+        <td><%= Profile.find(Membership.find(member_expense.membership_id))).fname %></td>
+        <td><%= member_expense.gexpense_id %></td>
+        <td><%= link_to 'Show', group_gexpense_member_expense_path(@group, @gexpense, member_expense) %></td>
+        <td><%= link_to 'Edit', edit_group_gexpense_member_expense_path(@group, @gexpense, member_expense) %></td>
+        <td><%= link_to 'Destroy', group_gexpense_member_expense@group, @gexpense, member_expense), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

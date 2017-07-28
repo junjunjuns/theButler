@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Paid:</strong>
+  <% if @member_expense.paid %>
+    Yes
+  <% else %>
+    No
+  <% end %>
+</p>
+
+<p>
+  <strong>Membership:</strong>
+  <%= Profile.find(Membership.find(@member_expense.membership_id)).fname %>
+</p>
+
+<p>
+  <strong>Expense:</strong>
+  <%= @member_expense.gexpense_id %>
+</p>
+
+<%= link_to 'Edit', edit_group_gexpense_member_expense_path(@group, @gexpense, @member_expense) %> |
+<%= link_to 'Back', group_gexpnse_member_expenses_path(@group, @gexpese) %>

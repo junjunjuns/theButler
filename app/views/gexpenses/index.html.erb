@@ -1,0 +1,67 @@
+<p id="notice"><%= notice %></p>
+
+<p><%= link_to "+ Record New Expenses", new_group_gexpense_path(@group) %></p>
+
+<% @cat_exp.each do |cat, expense| %>
+  <h2><%= cat %></h2>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Expense</th>
+        <th>Contributor</th>
+        <th>Total Amount</th>
+        <th>Paid On</th>
+        <th>Paid</th>
+        <th>Owing</th>
+        <th>Amount/person</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% expense.each do |e| %>
+        <tr>
+          <td><%= Gitem.find(e.gitem_id).name %></td>
+          <td><%= Profile.find(e.profile_id).fname %></td>
+          <td><%= e.total_amt %></td>
+          <td><%= e.paid_on.strftime('%d %b %y') %></td>
+          <td>
+            <% @member_expense.where(:gexpense_id => e.id).each do |me| %>
+              <% if me.paid %>
+                <%= Profile.find(Membership.find(me.membership_id).profile_id).fname %> </br>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <% @member_expense.where(:gexpense_id => e.id).each do |me| %>
+              <% if me.paid %>
+              <% else %>
+                 <%= Profile.find(Membership.find(me.membership_id).profile_id).fname %>
+                 <% if current_user.id == Profile.find(Membership.find(me.membership_id).profile_id) %>
+                   (<%= link_to 'Pay', pay_gexpenses_path(@group, e, me), method: :post, data: { confirm: 'By selecting this you are confirming that you have paid the contributor for the expense.' }%>)
+                  <% end %>
+                 </br>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <% if e.shared_amt.nil? %>
+              <%= link_to 'Calculate shared amount', calc_shared_path(@group, e), method: :post %>
+            <% else %>
+              <%= e.shared_amt %>
+            <% end %>
+          </td>
+          <td>
+            <% if current_user.id = e.profile_id %>
+              <%= link_to 'Edit', edit_group_gexpense_path(@group, e) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  </br>
+<% end %>
+
+<%= link_to 'Back to Group', @group %>

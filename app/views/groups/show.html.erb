@@ -94,4 +94,89 @@
 
 <div class="section">
   <h2>Group Expenses</h2>
+  <% if @gexpenses.nil? %>
+  <% else %>
+    <h3>Overview</h3>
+    
+    <div class = "half">
+      <table>
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @monthly_exp.each do |month, expenses| %>
+            <tr>
+              <td><%= month %></td>
+              <% count_array = expenses.collect { |e| e.total_amt } %>
+              <td><%= count_array.sum %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class"half">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @cat_exp.each do |cat, expenses| %>
+            <tr>
+              <td><%= cat %></td>
+              <% count_array = expenses.collect { |e| e.total_amt } %>
+              <td><%= count_array.sum %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="clearfix"></div>
+  <% end %>
+  
+  <%= link_to '+ Record a New Expense', new_group_gexpense_path(@group) %>
+  <%= link_to 'View all Group Expenses', group_gexpenses_path(@group) %>
+  
+  <% if @member_expense.where(:paid => false) %>
+    <h3>Bills Outstanding</h3>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Expense</th>
+          <th>Date Incurred</th>
+          <th>Owing</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @member_expense.where(:paid => false).each do |e| %>
+          <% if e.paid %>
+          <% else %>
+            <tr>
+              <td><%= Gitem.find(Gexpense.find(e.gexpense_id).gitem_id).name %></td>
+              <td><%= Gexpense.find(e.gexpense_id).paid_on.strftime('%d %b %y') %></td>
+              <td><%= Profile.find(Membership.find(e.membership_id).profile_id).fname %></td>
+              <td><%= Gexpense.find(e.gexpense_id).shared_amt %></td>
+              <td>
+                <% if current_user.id == Profile.find(Membership.find(e.membership_id).profile_id) %>
+                  (<%= link_to 'Pay', pay_gexpenses_path(@group, e.gexpense_id, e), method: :post, data: { confirm: 'By selecting this you are confirming that you have paid the contributor for the expense.' }%>)
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+  <p>All group expeneses have been paid!</p>
+    
+  <% end %>
 </div>

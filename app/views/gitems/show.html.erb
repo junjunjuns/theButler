@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @gitem.name %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @gitem.desc %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= Gcategory.find(@gitem.gcategory_id).name %>
+</p>
+
+<%= link_to 'Edit', edit_group_gcategory_gitem_path(@group, @gcategory, @gitem) %> |
+<%= link_to 'Back', group_gcategory_gitems_path(@group, @gcategory) %>

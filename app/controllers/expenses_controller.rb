@@ -7,7 +7,7 @@ class ExpensesController < ApplicationController
     
     @expenses = @profile.expenses
     
-    @monthly_exp = @expenses.group_by(&:month).sort
+    @monthly_exp = @expenses.order('exp_date desc').group_by(&:month)
     
     @cat_exp = @expenses.group_by(&:category).sort
   end
@@ -17,7 +17,7 @@ class ExpensesController < ApplicationController
     
     @expenses = @profile.expenses
     
-    @monthly_exp = @expenses.group_by(&:month).sort
+    @monthly_exp = @expenses.order('exp_date').group_by(&:month)
     
     @cat_exp = @expenses.group_by(&:category).sort
   end

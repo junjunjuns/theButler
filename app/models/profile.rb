@@ -8,7 +8,9 @@ class Profile < ActiveRecord::Base
   
   has_many :categories, :dependent => :destroy
   has_many :expenses, :dependent => :destroy
-  
+
+  has_many :gexpenses, :dependent => :destroy
+
   # Validates each field that must be filled in
   validates :fname,
   :presence => true

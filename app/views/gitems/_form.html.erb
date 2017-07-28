@@ -1,0 +1,32 @@
+<%= form_for([@group, @gcategory, @gitem]) do |f| %>
+  <% if @gitem.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gitem.errors.count, "error") %> prohibited this gitem from being saved:</h2>
+
+      <ul>
+      <% @gitem.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :desc %><br>
+    <%= f.text_field :desc %>
+  </div>
+  <div class="field">
+    <%= f.label 'Category' %><br>
+    <%= f.select :gcategory_id, @gcategories.collect { |cat| [cat.name, cat.id] } %>
+  </div>
+  
+  </br>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

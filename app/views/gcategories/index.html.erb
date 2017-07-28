@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<div class="section">
+  <div class="speech-bubble-bottom">
+    <p>Remember, you will have to create a category before you can create an item.</p>
+    <p>To add or view items of a category, simply click on the category.</p>
+  </div>
+    <img src="/assets/butler/butler3.png" alt="butler" title="Mr. Butlter"/>
+</div>
+<div class="two-third">
+  <h1>All Categories</h1>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Items</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @gcategories.each do |gcategory| %>
+        <tr>
+          <td><%= link_to gcategory.name, group_gcategory_path(@group, gcategory) %></td>
+          <td><%= gcategory.desc %></td>
+          <td>
+            <% @gitems.where(:gcategory_id => gcategory.id).each do |itm| %>
+              <%= itm.name %> <br>
+            <% end %>
+          </td>
+          <td><%= link_to 'Edit', edit_group_gcategory_path(@group, gcategory) %></td>
+          <td><%= link_to 'Destroy', group_gcategory_path(@group, gcategory), method: :delete, data: { confirm: 'Are you sure? All items and expenses under this category will also be deleted.' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <br>
+  
+  <%= link_to 'New Category', new_group_gcategory_path(@group) %>
+  <%= link_to 'Back to Recording a New Expense', new_group_gexpense_path(@group) %>
+</div>

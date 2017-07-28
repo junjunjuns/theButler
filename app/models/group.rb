@@ -11,6 +11,10 @@ class Group < ActiveRecord::Base
   
   has_many :activities, :dependent => :destroy
   
+  has_many :gexpenses, :dependent => :destroy
+  
+  has_many :gcategories, :dependent => :destroy
+  
   def self.search(search)
     where("name LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%")
   end
