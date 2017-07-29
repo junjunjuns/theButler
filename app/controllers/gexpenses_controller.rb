@@ -104,7 +104,7 @@ class GexpensesController < ApplicationController
     
     @member_expense = @gexpense.member_expenses.count
     
-    @shared_amt = @gexpense.total_amt / @member_expense
+    @shared_amt = @gexpense.total_amt / (@member_expense + 1)
     
     @gexpense.update_attribute(:shared_amt, @shared_amt)
     

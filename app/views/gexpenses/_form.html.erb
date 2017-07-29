@@ -28,7 +28,7 @@
   </div>
   <div class="clearfix"></div>
   <div class="field">
-    <%= f.label 'Members Sharing this Expense:' %>
+    <%= f.label 'Members Sharing this Expense (excluding yourself):' %>
     <%= f.collection_check_boxes :membership_ids, @membership.all, :id, :fname do |member| %>
       <div class="collection-check-box">
         <%= member.check_box %>
