@@ -7,4 +7,9 @@ class ApplicationController < ActionController::Base
     def after_sign_in_path_for(resource)
       "/signedinuserprofile"
     end
+  
+  # restrict certain pages to admin only  
+  def authorize_admin
+    redirect_to restricted_path unless current_user.admin
+  end
 end
