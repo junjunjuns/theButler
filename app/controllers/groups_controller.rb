@@ -21,6 +21,19 @@ class GroupsController < ApplicationController
   # GET /groups/1.json
   def show
     @group = Group.find(params[:id])
+    
+    # Check if current_user is admin
+    @memberships = @group.memberships
+    
+    if @memberships.find_by_profile_id(current_user.id).nil?
+      @admin = false
+    else
+      if @memberships.find_by_profile_id(current_user.id).g_admin == true
+        @admin = true
+      else
+        @admin = false
+      end
+    end
 
     # Create a new message
     @message = @group.messages.build

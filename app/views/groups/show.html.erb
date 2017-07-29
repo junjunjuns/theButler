@@ -3,10 +3,13 @@
     <h1><%= @group.name %></h1>
   </div>
   <div class="right">
-    <%= link_to "View Members", group_memberships_path(@group) %>
-    <% if current_user.admin? %>
-      <%= link_to "Edit Group", edit_group_path(@group) %>
-    <% end %>
+    <div class="links">
+      <p><%= link_to "View Members", group_memberships_path(@group) %></p>
+      <% if @admin %>
+        <p><%= link_to "Edit Group", edit_group_path(@group) %></p>
+      <% end %>
+    </div>
+    <div class="clearfix"></div>
   </div>
 </div>
 

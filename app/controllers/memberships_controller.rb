@@ -10,12 +10,14 @@ class MembershipsController < ApplicationController
     # Access all memberships for that group
     @memberships = @group.memberships
     
-    # check if user is admin
-    @user = @memberships.find_by_profile_id(current_user.id)
-    if @user.g_admin == true
-      @admin = true
-    else
+    if @memberships.find_by_profile_id(current_user.id).nil?
       @admin = false
+    else
+      if @memberships.find_by_profile_id(current_user.id).g_admin == true
+        @admin = true
+      else
+        @admin = false
+      end
     end
   end
 

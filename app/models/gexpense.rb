@@ -2,7 +2,7 @@ class Gexpense < ActiveRecord::Base
   belongs_to :profile
   belongs_to :group
   belongs_to :gitem
-  has_many :member_expenses
+  has_many :member_expenses, :dependent => :destroy
   has_many :memberships, :through => :member_expenses, :dependent => :destroy
   
   validates :paid_on, :presence => true
