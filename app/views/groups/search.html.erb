@@ -13,7 +13,12 @@
             <tr>
                 <td><%= g.name %></td>
                 <td><%= g.description %></td>
-                <td><%= link_to 'Join', join_membership_path(g.id, @membership), method: :post, data: { confirm: 'Request to join group?' } %></td>
+                <% @memberships = Membership.where(:group_id => g.id) %>
+                <% if @memberships.where(:profile_id => current_user.id).exists? %>
+                    <td>&nbsp;</td>
+                <% else %>
+                    <td><%= link_to 'Join', join_membership_path(g.id, @membership), method: :post, data: { confirm: 'Request to join group?' } %></td>
+                <% end %>
             </tr>
         <% end %>
     </tbody>
