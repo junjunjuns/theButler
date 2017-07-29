@@ -12,11 +12,9 @@ class Profile < ActiveRecord::Base
   has_many :gexpenses, :dependent => :destroy
 
   # Validates each field that must be filled in
-  validates :fname,
-  :presence => true
+  validates :fname, :presence => true
   
-  validates :lname,
-  :presence => true
+  validates :lname, :presence => true
 
     # For avatar settings
     # @references http://robmclarty.com/blog/how-to-install-image-magick-and-setup-paperclip
