@@ -1,45 +1,43 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-    <strong>Avatar:</strong>
+<div class="section">
     <%= image_tag(@profile.avatar.url(:preview)) %>
-</p>
+</div>
 
-<p>
-  <strong>Fname:</strong>
-  <%= @profile.fname %>
-</p>
+<div class="two-third">
+  <p><strong><%= @profile.fname %> <%= @profile.lname %></strong></p>
+  
+  <p>
+    <strong>Birthday:</strong>
+    <%= @profile.dob %>
+  </p>
+  
+  <p>
+    <strong>Gender:</strong>
+    <%= @profile.gender %>
+  </p>
+  
+  <p>
+    <strong>Nationality:</strong>
+    <%= @profile.nationality %>
+  </p>
+  
+  <p>
+    <strong>Religion:</strong>
+    <%= @profile.religion %>
+  </p>
+  
+  <p>
+    <strong>Bio:</strong>
+    <%= @profile.description %>
+  </p>
+  
+  <% if @profile.id == current_user.id %>
+    <%= link_to 'Edit', edit_profile_path(@profile) %>
+  <% end %>
+</div>
 
-<p>
-  <strong>Lname:</strong>
-  <%= @profile.lname %>
-</p>
 
-<p>
-  <strong>Birthday:</strong>
-  <%= @profile.dob %>
-</p>
 
-<p>
-  <strong>Gender:</strong>
-  <%= @profile.gender %>
-</p>
 
-<p>
-  <strong>Nationality:</strong>
-  <%= @profile.nationality %>
-</p>
 
-<p>
-  <strong>Religion:</strong>
-  <%= @profile.religion %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @profile.description %>
-</p>
-
-<% if @profile.id == current_user.id %>
-  <%= link_to 'Edit', edit_profile_path(@profile) %>
-<% end %>

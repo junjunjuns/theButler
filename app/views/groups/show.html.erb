@@ -17,21 +17,17 @@
   </div>
   <div class="content">
     <% @activities.where(:group_id => @group).each do |act| %>
+      <p><%= link_to act.name, group_activity_path(@group, act) %></p>
       <table>
-        <thead>
-          <tr>
-            <td><%= link_to act.name, group_activity_path(@group, act) %></td>
-          </tr>
-        </thead>
         <tbody>
           <tr>
-            <td>Date</td>
-            <td>Start Time</td>
-            <td>Person in Charge</td>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>Person in Charge</th>
           </tr>
           <% @schedules.where(:activity_id => act).each do |sch| %>
             <tr>
-              <td><%= sch.date.strftime("%e %B %Y, %A") %></td>
+              <td><%= sch.date.strftime("%e %b %y, %A") %></td>
               <td><%= sch.start_time.strftime("%H:%M") %></td>
               <% @membership = Membership.find(sch.membership_id) %>
               <td><%= Profile.find(@membership.profile_id).fname %></td>
@@ -60,11 +56,13 @@
       </div>
     <% end %>
     <div class="field">
-      <%= f.text_field :content %>
+      <%= f.text_field :content, :class => "message" %>
     </div>
+    <br>
     <div class="actions">
       <%= f.submit %>
     </div>
+    <br>
   <% end %>
   
   <!-- list all messages -->
@@ -74,20 +72,21 @@
         <tbody>
           <% @profile = Profile.find(msg.profile_id) %>
           <tr>
-            <td rowspan="2"><%= link_to image_tag(@profile.avatar.url(:mini)), profile_url(@profile) %></td>
-            <td><%= @profile.fname %></td>
-            <td colspan="2"><%= link_to 'Edit', edit_group_message_path(@group, msg) %> 
-                            <%= link_to 'Destroy', group_message_path(@group, msg), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <th rowspan="2"><%= link_to image_tag(@profile.avatar.url(:mini)), profile_url(@profile) %></th>
+            <th><%= @profile.fname %></th>
+            <th colspan="2"><%= link_to 'Edit', edit_group_message_path(@group, msg) %> |
+                            <%= link_to 'Destroy', group_message_path(@group, msg), method: :delete, data: { confirm: 'Are you sure?' } %></th>
           </tr>
           <tr>
-            <td><%= msg.created_at.strftime("%A, %e %B %Y at %H:%M") %></td>
-            <td>&nbsp;</td>
+            <th class="date"><%= msg.created_at.strftime("%A, %e %B %Y at %H:%M") %></th>
+            <th>&nbsp;</th>
           </tr>
           <tr>
             <td colspan="5"><%= msg.content %></td>
           </tr>
         </tbody>
       </table>
+      <br>
     <% end %>
   </div>
 </div>
@@ -98,7 +97,7 @@
   <% else %>
     <h3>Overview</h3>
     
-    <div class = "half">
+    <div class="half">
       <table>
         <thead>
           <tr>
@@ -118,7 +117,7 @@
       </table>
     </div>
     
-    <div class"half">
+    <div class="half">
       <table>
         <thead>
           <tr>
@@ -141,8 +140,10 @@
     <div class="clearfix"></div>
   <% end %>
   
-  <%= link_to '+ Record a New Expense', new_group_gexpense_path(@group) %>
-  <%= link_to 'View all Group Expenses', group_gexpenses_path(@group) %>
+  <div class="links">
+    <p><%= link_to '+ Record a New Expense', new_group_gexpense_path(@group) %></p>
+    <p><%= link_to 'View all Group Expenses', group_gexpenses_path(@group) %></p>
+  </div>
   
   <% if @member_expense.where(:paid => false) %>
     <h3>Bills Outstanding</h3>
@@ -154,6 +155,7 @@
           <th>Date Incurred</th>
           <th>Owing</th>
           <th>Amount</th>
+          <th>&nbsp;</th>
         </tr>
       </thead>
       <tbody>
@@ -166,7 +168,7 @@
               <td><%= Profile.find(Membership.find(e.membership_id).profile_id).fname %></td>
               <td><%= Gexpense.find(e.gexpense_id).shared_amt %></td>
               <td>
-                <% if current_user.id == Profile.find(Membership.find(e.membership_id).profile_id) %>
+                <% if current_user.id == Membership.find(e.membership_id).profile_id %>
                   (<%= link_to 'Pay', pay_gexpenses_path(@group, e.gexpense_id, e), method: :post, data: { confirm: 'By selecting this you are confirming that you have paid the contributor for the expense.' }%>)
                 <% end %>
               </td>

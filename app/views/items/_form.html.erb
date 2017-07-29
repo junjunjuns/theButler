@@ -16,13 +16,14 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :desc %><br>
+    <%= f.label 'Description' %><br>
     <%= f.text_field :desc %>
   </div>
   <div class="field">
     <%= f.label :category_id %><br>
     <%= f.select :category_id, @categories.collect { |cat| [cat.name, cat.id] } %>
   </div>
+  <br>
   <div class="actions">
     <%= f.submit %>
   </div>

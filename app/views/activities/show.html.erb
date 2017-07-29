@@ -8,7 +8,12 @@
 <div class="two-third">
   <h1><%= @activity.name %></h1>
   <h3><%= @activity.description %></h3>
-  <%= link_to "+ add schedule", new_group_activity_schedule_path(@group, @activity) %>
+  
+  <div class="links">
+    <p><%= link_to "+ Add Schedule", new_group_activity_schedule_path(@group, @activity) %></p>
+  </div>
+  
+  <div class="clearfix"></div>
   
   <table>
     <thead>

@@ -28,7 +28,7 @@ class GexpensesController < ApplicationController
     @gexpense = @group.gexpenses.build
     
     @membership = @group.memberships
-    
+
     @gexpense.profile_id = current_user.id
     @gexpense.group_id = @group.id
     

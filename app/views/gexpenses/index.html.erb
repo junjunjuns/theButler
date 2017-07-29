@@ -1,6 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<p><%= link_to "+ Record New Expenses", new_group_gexpense_path(@group) %></p>
+<h1>All Group Categories</h1>
+
+<div class="links">
+  <p><%= link_to "+ Record New Expenses", new_group_gexpense_path(@group) %></p>
+  <p><%= link_to "View All Categories", group_gcategories_path(@group) %></p>
+</div>
+
+<div class="clearfix"></div>
 
 <% @cat_exp.each do |cat, expense| %>
   <h2><%= cat %></h2>
@@ -37,7 +44,7 @@
               <% if me.paid %>
               <% else %>
                  <%= Profile.find(Membership.find(me.membership_id).profile_id).fname %>
-                 <% if current_user.id == Profile.find(Membership.find(me.membership_id).profile_id) %>
+                 <% if current_user.id == Membership.find(me.membership_id).profile_id %>
                    (<%= link_to 'Pay', pay_gexpenses_path(@group, e, me), method: :post, data: { confirm: 'By selecting this you are confirming that you have paid the contributor for the expense.' }%>)
                   <% end %>
                  </br>
@@ -52,7 +59,7 @@
             <% end %>
           </td>
           <td>
-            <% if current_user.id = e.profile_id %>
+            <% if current_user.id == e.profile_id %>
               <%= link_to 'Edit', edit_group_gexpense_path(@group, e) %>
             <% end %>
           </td>

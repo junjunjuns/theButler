@@ -11,13 +11,15 @@
 
 <div class="two-third">
   <h1>Expenses Overview</h1>
-  <p><%= link_to "+ Record New Expenses", new_profile_expense_path(@profile) %></p>
-  <p><%= link_to "View All Expenses", profile_expenses_path(@profile) %></p>
-  <p><%= link_to "View All Categories", profile_categories_path(@profile) %></p>
+  <div class="links">
+    <p><%= link_to "+ Record New Expenses", new_profile_expense_path(@profile) %></p>
+    <p><%= link_to "View All Expenses", profile_expenses_path(@profile) %></p>
+    <p><%= link_to "View All Categories", profile_categories_path(@profile) %></p>
+  </div>
 
   <div class="clearfix"></div>
   
-  <div class = "half">
+  <div class="half">
     <table>
       <thead>
         <tr>
@@ -36,7 +38,7 @@
       </tbody>
     </table>
   </div>
-  <div class"half">
+  <div class="half">
     <table>
       <thead>
         <tr>

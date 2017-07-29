@@ -20,9 +20,10 @@
     <%= f.time_select :start_time %>
   </div>
   <div class="field">
-    <%= f.label 'Person in charge' %><br>
+    <%= f.label 'Person(s) in Charge' %><br>
     <%= f.select :membership_id, @membership.collect { |m| [Profile.find(m.profile_id).fname, m.id] } %>
   </div>
+  <br>
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -16,7 +16,7 @@
   <tbody>
     <% @schedules.each do |schedule| %>
       <tr>
-        <td><%= schedule.date.strftime("%e %B %Y, %A") %></td>
+        <td><%= schedule.date.strftime("%e %b %y, %A") %></td>
         <td><%= schedule.start_time.strftime("%H:%M") %></td>
         <td><%= schedule.activity %></td>
         <td><%= schedule.membership %></td>

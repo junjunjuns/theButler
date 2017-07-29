@@ -10,9 +10,12 @@
 
 <div class="two-third">
     <div class="top">
-        <div class="create">
-            <%= link_to 'Create Group', new_group_path %>
+        <div class="links">
+            <p><%= link_to '+ Create Group', new_group_path %></p>
         </div>
+        
+        <div class="clearfix"></div>
+        
         <div class="search">
             <%= form_tag(group_search_path, :method => "get", id: "search-form") do %>
                 <%= text_field_tag :search, params[:search], placeholder: "Search for a Group" %>

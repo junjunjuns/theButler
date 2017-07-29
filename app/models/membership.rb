@@ -7,4 +7,8 @@ class Membership < ActiveRecord::Base
   has_many :schedules, :dependent => :destroy
   
   has_many :gexpenses, :through => :member_expenses, :dependent => :destroy
+  
+  def fname
+    Profile.find(self.profile_id).fname
+  end
 end

@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link rel="icon" href="/assets/butler/butler4.png">
   <title>The Butler</title>
   
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -23,6 +24,7 @@
     <ul>
       <% if user_signed_in? %>
         <% @profile = current_user.id %>
+        <li class="nav_img"><%= link_to image_tag('/assets/butler/butler4.png', width: '30%'), root_path %></li>
         <li><%= link_to 'Profile', profile_path(@profile) %></li>
         <li><%= link_to 'Expenses', expenses_overview_path(@profile) %></li>
         <li><%= link_to 'Groups', group_home_path %></li>

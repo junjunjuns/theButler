@@ -16,23 +16,27 @@
     <%= f.date_select :paid_on %>
   </div>
   <div class="field">
-    <%= f.label :total_amt %><br>
+    <%= f.label 'Total Amount' %><br>
     <%= f.text_field :total_amt %>
   </div>
   <div class="field">
     <%= f.label 'Item' %><br>
     <%= f.select :gitem_id, @gitem.collect { |itm| [itm.itm_with_cat, itm.id] } %>
   </div>
-  <p><%= link_to 'Create New Item', group_gcategories_path(@group, @gcategories) %></p>
+  <div class="links">
+    <p><%= link_to 'Create New Item', group_gcategories_path(@group, @gcategories) %></p>
+  </div>
+  <div class="clearfix"></div>
   <div class="field">
-    <%= f.label 'Members sharing the Expense' %>
-    <%= f.collection_check_boxes :membership_ids, @membership.all, :id, :profile_id do |member| %>
+    <%= f.label 'Members Sharing this Expense:' %>
+    <%= f.collection_check_boxes :membership_ids, @membership.all, :id, :fname do |member| %>
       <div class="collection-check-box">
         <%= member.check_box %>
         <%= member.label %>
       </div>
     <% end %>
   </div>
+  <br>
   <div class="actions">
     <%= f.submit %>
   </div>
