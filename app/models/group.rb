@@ -16,6 +16,6 @@ class Group < ActiveRecord::Base
   has_many :gcategories, :dependent => :destroy
   
   def self.search(search)
-    where("name LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%")
+    where("lower(name) LIKE ? OR lower(description) LIKE ?", "%#{search.downcase}%", "%#{search.downcase}%")
   end
 end
