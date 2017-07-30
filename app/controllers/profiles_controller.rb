@@ -73,7 +73,7 @@ class ProfilesController < ApplicationController
   end
   
   def signedinuserprofile
-    @profile = Profile.find(current_user.id)
+    @profile = Profile.find_by_user_id(current_user.id)
       if @profile.nil?
         redirect_to "/profiles/new"
       else
