@@ -16,7 +16,7 @@
         <% expenses.group_by(&:category).sort.each do |cat, e| %>
           <tr>
             <td><%= cat %></td>
-            <% count_array = expenses.collect { |e| e.amt } %>
+            <% count_array = e.collect { |e| e.amt } %>
             <td><%= count_array.sum %></td>
           </tr>
         <% end %>
@@ -37,7 +37,7 @@
         <% expenses.group_by(&:day).sort.each do |day, e| %>
           <tr>
             <td><%= day %></td>
-            <% count_array = expenses.collect { |e| e.amt } %>
+            <% count_array = e.collect { |e| e.amt } %>
             <td><%= count_array.sum %></td>
           </tr>
         <% end %>
